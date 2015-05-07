@@ -14,14 +14,13 @@ using namespace std;
 
 void print_ratio(int& chys, int& znam)
 {
-	//cout << operation;
 	cout << chys << "/" << znam;
 	return;
 }
 
 //**********************************************************
-
-int devisor(int& chys, int& znam)
+//function is looking for common devisor using Euclidean algorithm
+int devisor(int& chys, int& znam)		
 {
 	int a = chys;
 	int b = znam;
@@ -36,8 +35,8 @@ int devisor(int& chys, int& znam)
 }
 
 //**********************************************************
-
-int reduce(int& chys, int& znam)
+//using common devisor we can reduse ratio if it not = 1 -> 2/4 = 1/2, but 3/5 = 3/5
+int reduce(int& chys, int& znam)		
 {
 	int dev = devisor(chys, znam);
 	chys = chys/dev;
@@ -47,21 +46,21 @@ int reduce(int& chys, int& znam)
 
 //**********************************************************
 
-int check_ratio(int& chys, int& znam)
+int check_ratio(int& chys, int& znam)		
 {
 	//assert(znam == 0);
-	if (chys == 0)
+	if (chys == 0)				//check if ratio has 0 in numerator
 	{
 		znam = 1;
 	}
-	else if (znam == 0)
+	else if (znam == 0)			//check if ratio has 0 in denominator
 	{
 		chys = 1;
 		znam = 1;
 	}
-	else if (znam < 0)
-	{
-		chys = -(chys);
+	else if (znam < 0)			//check if ratio has negativ value in denominator 
+	{					//if yes - move negative sign in numerator
+		chys = -(chys);			
 		znam = -(znam);
 		reduce(chys, znam);
 	}
@@ -73,7 +72,7 @@ return 0;
 }
 
 //**********************************************************
-
+//using common devisor we can find common denominator for both ratios -> 2/3 and 1/5 = 10/15 and 3/15
 int common_devisor(int& chys1, int& znam1, int& chys2, int& znam2)
 {
 	int common_dev;
@@ -105,6 +104,7 @@ int common_devisor(int& chys1, int& znam1, int& chys2, int& znam2)
 
 
 //**********************************************************
+//adding ratios with common devisor after redusing 
 int add_ratio(const Ratio& x, const Ratio& y)
 {
 	int chys1 = x.num;
@@ -113,7 +113,6 @@ int add_ratio(const Ratio& x, const Ratio& y)
 	int znam2 = y.denum;
 	int result;
 	int com_dev;
-    //string operation = "addition: ";
 
 	check_ratio(chys1, znam1);
 	check_ratio(chys2, znam2);
@@ -126,7 +125,7 @@ int add_ratio(const Ratio& x, const Ratio& y)
 
 
 //**********************************************************
-
+//subtracting ratios with common devisor
 int subtract_ratio(const Ratio& x, const Ratio& y)
 {
 	int chys1 = x.num;
@@ -146,7 +145,7 @@ int subtract_ratio(const Ratio& x, const Ratio& y)
 }
 
 //**********************************************************
-
+//multiplying ratios
 int multiplied_ratio(const Ratio& x, const Ratio& y)
 {
 	int chys1 = x.num;
@@ -165,13 +164,13 @@ int multiplied_ratio(const Ratio& x, const Ratio& y)
 }
 
 //**********************************************************
-
+//deviding ratios
 int divide_ratio(const Ratio& x, const Ratio& y)
 {
 	int chys1 = x.num;
 	int znam1 = x.denum;
-	int chys2 = y.denum;			//change to denominator;
-	int znam2 = y.num;				//change to numerator;
+	int chys2 = y.denum;			
+	int znam2 = y.num;			
 	int result;
 	int com_dev;
 
@@ -184,8 +183,8 @@ int divide_ratio(const Ratio& x, const Ratio& y)
 }
 
 //**********************************************************
-
-int comapre(int& chys1, int& chys2, int& com_dev)
+//comparing ratios with common devisor and printing result
+int compare(int& chys1, int& chys2, int& com_dev)
 {
 	if (chys1 > chys2)
 		cout << chys1 << "/" << com_dev << " is greater than " << chys2 << "/" << com_dev;
@@ -197,7 +196,7 @@ int comapre(int& chys1, int& chys2, int& com_dev)
 }
 
 //**********************************************************
-
+//comparing ratios with common devisor
 int compare_ratio(const Ratio& x, const Ratio& y)
 {
 	int chys1 = x.num;
@@ -209,7 +208,7 @@ int compare_ratio(const Ratio& x, const Ratio& y)
 	check_ratio(chys1, znam1);
 	check_ratio(chys2, znam2);
 	com_dev = common_devisor(chys1, znam1, chys2, znam2);
-	comapre(chys1, chys2, com_dev);
+	compare(chys1, chys2, com_dev);
 	return 0;
 }
 

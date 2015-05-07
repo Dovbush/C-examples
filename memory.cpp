@@ -2,16 +2,16 @@
 #include "memory.h"
 using namespace std;
 
-
+//constructor
 Array::Array()
 {
-	arr_size = 0;
-	capacity = 5;
+	arr_size = 0;             //non empty index
+	capacity = 5;             //full array size with zeros
     parr = new double [capacity];
 }
 
 
-
+//user's defind constructor 
 Array::Array(size_t mem_size)
 {
 	arr_size = 0;
@@ -20,7 +20,7 @@ Array::Array(size_t mem_size)
 }
 
 
-
+//make make a copy of array
 Array::Array(const Array &ptr)
     :capacity(ptr.capacity)
 {
@@ -40,6 +40,7 @@ Array::Array(const Array &ptr)
 }
 
 
+//destructor
 Array::~Array()
 {
     delete [] parr;
@@ -60,12 +61,12 @@ void Array::print_size()
 }
 
 
-
+//function cut zeros in the tail
 Array Array::resize_down()
 {
-	double *parr1;
+    double *parr1;
     capacity = arr_size;
-    parr1 = new double [capacity];
+    parr1 = new double [capacity];	//temporary array
     for (size_t i=0; i<capacity; ++i)
         parr1[i] = parr[i];
   	delete [] parr;
@@ -74,10 +75,10 @@ Array Array::resize_down()
 }
 
 
-
+//function extends array if there is no more enough place to store data
 Array Array::resize_up(size_t size)
 {
-	double *parr1;
+    double *parr1;
     parr1 = new double [size];
 
     for (size_t i=0; i<capacity; ++i)
@@ -91,7 +92,7 @@ Array Array::resize_up(size_t size)
 }
 
 
-
+//store data into the last empty index
 void Array::push_to_the_end(const double &temp)
 {
     if (arr_size == capacity)
@@ -109,7 +110,7 @@ void Array::push_to_the_end(const double &temp)
 }
 
 
-
+//function allows Object to store data using []
 double &Array::operator[] (size_t ind)
 {
 	if (ind > capacity)
@@ -122,7 +123,7 @@ double &Array::operator[] (size_t ind)
 }
 
 
-
+//function allows Object to be assigned with some data
 const Array &Array::operator= (const Array &rightSide)
 {
    	capacity = rightSide.capacity;
@@ -136,7 +137,7 @@ const Array &Array::operator= (const Array &rightSide)
 }
 
 
-
+//function allows comparing two Objects
 bool Array::operator== (const Array &rightSide) const
 {
     if (capacity != rightSide.capacity)
@@ -149,7 +150,7 @@ bool Array::operator== (const Array &rightSide) const
 }
 
 
-
+//function allows to add two Objects
 Array Array::operator+ (const Array &rightSide)
 {
     if (capacity != rightSide.capacity)
@@ -165,7 +166,7 @@ Array Array::operator+ (const Array &rightSide)
     return SumArray;
 }
 
-
+//function prints all elements in array, even zeros
 void Array::get_all_elements()
 {
     for (size_t k=0; k<capacity; ++k)
@@ -173,12 +174,14 @@ void Array::get_all_elements()
     cout << endl;
  }
 
+//function allows to get specified element from array (not by index)
 void Array::get_element(size_t ind)
 {
     cout << "Element " << ind << " (not index) is " << parr[ind-1] << endl;
 }
 
-
+//function allows to delete specified element from array (not by index)
+//and make array smaller
 int Array::del_element(size_t ind)
 {
     if (ind > capacity)
